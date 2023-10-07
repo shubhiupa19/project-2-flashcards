@@ -61,25 +61,76 @@ const flashcards = [
 function App() {
   //initialize a state variable called currentIndex of the card and set it to 0, since we're starting with the first card
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [answer, setAnswer] = useState('');
+  const [isCorrect, setIsCorrect] = useState(null);
 
   //if we're on the last flaschard, go back to the first one
   //else, just keep iterating through 
-  const handleNextCard = () => {
-    if (currentIndex < flashcards.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  const handleNextCard = () => { 
+    const newIndex = (currentIndex + 1 + flashcards.length) % flashcards.length;
+    setCurrentIndex(newIndex);
+    setAnswer('');
+    setIsCorrect(null);
+  };
+
+  const handlePrevCard = () => {
+    const newIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+    setCurrentIndex(newIndex);
+    setAnswer('');
+    setIsCorrect(null);
+  };
+
+  const handleAnswerChange = (event) => { 
+    setAnswer(event.target.value);
+  };
+
+  const handleAnswerSubmit = (event) => {
+    event.preventDefault();
+    const currentFlashcard = flashcards[currentIndex];
+    if (answer.toLowerCase() === currentFlashcard.capital.toLowerCase()) {
+      setIsCorrect(true);
     } else {
-      setCurrentIndex(0);
+      setIsCorrect(false);
     }
   };
+
+  
+
+
+  let feedbackMessage = null;
+  if (isCorrect === true) {
+    feedbackMessage = <p className="correct">Correct!</p>;
+  } else if (isCorrect === false) {
+    feedbackMessage = <p className="incorrect">Incorrect. The correct answer is {flashcards[currentIndex].capital}.</p>;
+  }
+  
 
   return (
     //renders the webpage
     <div className="App">
       <h1>States and Capitals</h1>
+      <h2>Can you name the capital of each state? (50 cards in total)</h2>
+
       {/* prints out the card */}
       <Card flashcard={flashcards[currentIndex]} />
+      {feedbackMessage}
+      <form onSubmit={handleAnswerSubmit}>
+        <label>
+          Enter your answer:
+          <input type="text" value={answer} onChange={handleAnswerChange} />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+
+       {/* button to go to the previous card */}
+       <div class = "card-buttons">
+       <button onClick={handlePrevCard}>Previous</button>
       {/* button to go to the next card */}
       <button onClick={handleNextCard}>Next</button>
+
+     
+      </div>
+     
     </div>
   );
 }

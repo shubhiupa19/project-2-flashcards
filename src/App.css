@@ -5,15 +5,29 @@
   padding: 2rem;
   text-align: center;
   font-family: 'Karla', sans-serif;
+  text-align: center;
+
 }
 body
 {
   background-color: ivory;
+  text-align: center;
+  
+}
+
+h1,h2{
+  color: black;
 }
 
 
+  .card-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
 button {
-  color: red;
+  margin: 10px;
+  color: tan;
   
 }
 
@@ -27,4 +41,15 @@ button {
   color: #888;
 }
 
+.correct {
+  color: green;
+}
 
+.incorrect {
+  color: red;
+}
+
+input {
+  background-color: white;
+  color: black;
+}

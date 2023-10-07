@@ -16,9 +16,7 @@ const Card = ({ flashcard }) => {
 
   return (
     //renders the card
-    //if the showAnswer variable is true, then the class 'flipped' is also applied
-    //also, when the card is clicked on, the toggleAnswer function is called
-    <div className={`card ${showAnswer ? 'flipped' : ''}`} onClick={toggleAnswer}>
+    <div className= "card">
       <div className="card-inner">
         <div className="card-front">
           {/* displays the state */}
@@ -30,6 +28,7 @@ const Card = ({ flashcard }) => {
           <h2>Capital</h2>
           <p> {flashcard.capital}</p>
         </div>
+    
       </div>
       
     </div>
